@@ -1,0 +1,41 @@
+# The build steps for the Vue-Storefront API instance
+# This file performs steps to continuously deploy the app:
+#   - unit test
+#   - build image to cloud image
+#   - save image to container registry
+
+steps:
+  # This section runs the unit tests on the app
+  # - name: 'python:3.7-slim'
+  #   id: Test
+  #   entrypoint: /bin/sh
+  #   args:
+  #   - -c
+  #   - 'pip install flask && python test_app.py -v'
+
+  # This section builds the vue-storefront-api images
+  - name: 'docker/compose:1.25.5'
+    args: ['-f', 'docker-compose.yml', '-f', 'docker-compose.nodejs.yml', 'up', '-d']
+  
+  # This section builds the cloud image.
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['tag', 'workspace_app:latest', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
+    images: ['gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
+
+  # This section builds the container image.
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   id: Build
+  #   args:
+  #   - 'build'
+  #   - '-t'
+  #   - 'gcr.io/$PROJECT_ID/hello-cloudbuild:$SHORT_SHA'
+  #   - '.'
+  
+  # This section pushes the image to Container Registry to be used for Cloud Run
+  # The PROJECT_ID and SHORT_SHA variables are automatically
+  # replaced by Cloud Build.
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   id: Push
+  #   args:
+  #   - 'push'
+  #   - 'gcr.io/$PROJECT_ID/hello-cloudbuild:$SHORT_SHA'
