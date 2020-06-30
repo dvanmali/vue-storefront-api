@@ -17,7 +17,8 @@ steps:
   - name: 'docker/compose:1.25.5'
     args: ['-f', 'docker-compose.yml', '-f', 'docker-compose.nodejs.yml', 'up', '-d']
   
-  # This section pushes the images to the Container Registry to be used for Cloud Run
+  # This section tags the local images to our GCR tag
+  #   The PROJECT_ID and SHORT_SHA variables are automatically replaced by Cloud Build.
   - name: 'gcr.io/cloud-builders/docker'
     args: ['tag', 'vue-storefront-api:latest', 'gcr.io/$PROJECT_ID/vue-storefront-api:$COMMIT_SHA']
 
@@ -27,20 +28,13 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['tag', 'redis:4-alpine', 'gcr.io/$PROJECT_ID/redis:$COMMIT_SHA']
 
-  # This section builds the container image.
-  # - name: 'gcr.io/cloud-builders/docker'
-  #   id: Build
-  #   args:
-  #   - 'build'
-  #   - '-t'
-  #   - 'gcr.io/$PROJECT_ID/hello-cloudbuild:$SHORT_SHA'
-  #   - '.'
-  
-  # This section pushes the image to Container Registry to be used for Cloud Run
-  # The PROJECT_ID and SHORT_SHA variables are automatically
-  # replaced by Cloud Build.
-  # - name: 'gcr.io/cloud-builders/docker'
-  #   id: Push
-  #   args:
-  #   - 'push'
-  #   - 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
+  # This section pushes the images to the Container Registry
+  #   The PROJECT_ID and SHORT_SHA variables are automatically replaced by Cloud Build.
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/vue-storefront-api:$COMMIT_SHA']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/elasticsearch7:$COMMIT_SHA']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/redis:$COMMIT_SHA']
