@@ -18,7 +18,7 @@ steps:
     args: ['-f', 'docker-compose.yml', '-f', 'docker-compose.nodejs.yml', 'up', '-d']
   
   # This section pushes the image to the Container Registry to be used for Cloud Run
-  - name: 'gcr.io/cloud-builders/docker'
+  - name: 'gcr.io/$PROJECT_ID/docker'
   #   args: ['tag', 'workspace_app:latest', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
     images: ['gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
 
