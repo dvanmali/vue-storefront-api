@@ -18,8 +18,9 @@ services:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xmx512m -Xms512m"
     networks: 
-      - esnet
+      - api_network
 
+  # OLD Kibana - tbd delete
   # kibana:
   #   build: docker/kibana/
   #   volumes:
@@ -29,25 +30,30 @@ services:
   #   depends_on:
   #     - es7
 
-  kibana7:
-    image: docker.elastic.co/kibana/kibana:7.3.2
-    container_name: kibana7
-    ports:
-      - '5601:5601'
-    environment:
-      ELASTICSEARCH_URL: http://localhost:9201
-      ELASTICSEARCH_HOSTS: http://localhost:9201
-    networks:
-      - esnet
+  # NEW Kibana on es7
+  # kibana7:
+  #   image: docker.elastic.co/kibana/kibana:7.3.2
+  #   container_name: kibana7
+  #   ports:
+  #     - '5601:5601'
+  #   environment:
+  #     ELASTICSEARCH_URL: http://localhost:9201
+  #     ELASTICSEARCH_HOSTS: http://localhost:9201
+  #   networks:
+  #     - api_network
 
   redis:
     image: 'redis:4-alpine'
+    container_name: redis
     ports:
       - '6379:6379'
+    networks: 
+      - api_network
 
 volumes:
   esdat1:
 
+# Networks are used to bridge and isolate services together https://docs.docker.com/network/bridge/
 networks:
-  esnet:
+  api_network:
     driver: bridge

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Standard Mode (app runs as docker image)
+docker-compose -f docker-compose.yml -f docker-compose.nodejs.yml up -d --remove-orphans
