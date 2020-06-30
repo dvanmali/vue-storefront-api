@@ -17,9 +17,15 @@ steps:
   - name: 'docker/compose:1.25.5'
     args: ['-f', 'docker-compose.yml', '-f', 'docker-compose.nodejs.yml', 'up', '-d']
   
-  # This section pushes the image to the Container Registry to be used for Cloud Run
+  # This section pushes the images to the Container Registry to be used for Cloud Run
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
+    args: ['tag', 'vue-storefront-api:latest', 'gcr.io/$PROJECT_ID/vue-storefront-api:$COMMIT_SHA']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['tag', 'vue-storefront-api_es7:latest', 'gcr.io/$PROJECT_ID/elasticsearch7:$COMMIT_SHA']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['tag', 'redis:4-alpine', 'gcr.io/$PROJECT_ID/redis:$COMMIT_SHA']
 
   # This section builds the container image.
   # - name: 'gcr.io/cloud-builders/docker'
@@ -37,4 +43,4 @@ steps:
   #   id: Push
   #   args:
   #   - 'push'
-  #   - 'gcr.io/$PROJECT_ID/Revnite-Env:$SHORT_SHA'
+  #   - 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA'
