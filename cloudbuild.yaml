@@ -19,7 +19,7 @@ steps:
   
   # This section pushes the image to the Container Registry to be used for Cloud Run
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['tag', 'workspace_app:latest', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
+    args: ['push', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
 
   # This section builds the container image.
   # - name: 'gcr.io/cloud-builders/docker'
