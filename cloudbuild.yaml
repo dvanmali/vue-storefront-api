@@ -17,10 +17,10 @@ steps:
   - name: 'docker/compose:1.25.5'
     args: ['-f', 'docker-compose.yml', '-f', 'docker-compose.nodejs.yml', 'up', '-d']
   
-  # This section builds the cloud image.
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['tag', 'workspace_app:latest', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
-    images: ['gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
+  # # This section builds the cloud image.
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['tag', 'workspace_app:latest', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
+  #   images: ['gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA']
 
   # This section builds the container image.
   # - name: 'gcr.io/cloud-builders/docker'
