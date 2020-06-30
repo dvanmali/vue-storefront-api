@@ -34,8 +34,8 @@ steps:
   # This section pushes the image to Container Registry to be used for Cloud Run
   # The PROJECT_ID and SHORT_SHA variables are automatically
   # replaced by Cloud Build.
-  - name: 'gcr.io/cloud-builders/docker'
-    id: Push
-    args:
-    - 'push'
-    - 'gcr.io/$PROJECT_ID/Revnite-Env:$SHORT_SHA'
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   id: Push
+  #   args:
+  #   - 'push'
+  #   - 'gcr.io/$PROJECT_ID/Revnite-Env:$SHORT_SHA'
