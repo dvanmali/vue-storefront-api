@@ -30,7 +30,7 @@ ENV VS_ENV dev
 
 WORKDIR /var/www
 
-RUN apk add --no-cache curl git
+RUN apk add --no-cache curl git bash
 
 COPY package*.json ./
 COPY yarn.lock ./

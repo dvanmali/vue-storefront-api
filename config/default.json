@@ -326,14 +326,14 @@
     }
   },
   "magento2": {
-    "imgUrl": "https://magento2.test/media/catalog/product",
+    "imgUrl": "http://172.20.0.1/media/catalog/product",
     "assetPath": "/../var/magento2-sample-data/pub/media",
     "api": {
-      "url": "https://magento2.test/rest",
-      "consumerKey": "0o3a8ie0zd9kbhn78sv9wgau2wit2f1h",
-      "consumerSecret": "kej6jvdwetye93ltsmj72od42hjwhsq2",
-      "accessToken": "3tcdoo7aq0wy4t2wrpyz5zp3mo8ryjl1",
-      "accessTokenSecret": "yhahl2bvv0x4cvv1enuwuxd2ra2zl63x"
+      "url": "http://172.20.0.1/rest",
+      "consumerKey": "2971j4kaoywxvonsx891hgnidmj6tshp",
+      "consumerSecret": "2in8lnukvfas7nztdxtuxf1imziw3fj2",
+      "accessToken": "i3d58nks3o9avja01x9wf8v8r2i9sm9q",
+      "accessTokenSecret": "z47hj0x2vrzvxkbydk5zf3veccmcd61w"
     }
   },
   "imageable": {

@@ -1,4 +1,4 @@
-version: '3.0'
+version: '3.5'
 services:
   app:
     # image: divante/vue-storefront-api:latest
@@ -31,6 +31,7 @@ services:
       - '8080:8080'
     networks: 
       - api_network
+      - api_to_magento
     
 #   webserver:
 #     image: nginx:mainline-alpine
@@ -71,3 +72,9 @@ services:
 
 volumes:
   node_modules:
+
+# Networks are used to bridge and isolate services together https://docs.docker.com/network/bridge/
+networks:
+  api_to_magento:
+    external: true
+    name: api_magento_net
