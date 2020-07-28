@@ -1,14 +1,15 @@
 version: '3.5'
 services:
   es7:
+    image:  revnite/vue-storefront-api
     container_name: elasticsearch7
     build: docker/elasticsearch7/
     ulimits:
       memlock:
         soft: -1
-        hard: -1    
-    volumes:
-      - ./docker/elasticsearch7/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+        hard: -1
+    # volumes:
+    #   - ./docker/elasticsearch7/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
     ports:
       - '9201:9200' # HOST:CONTAINER
       - '9301:9300'
@@ -17,8 +18,8 @@ services:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xmx512m -Xms512m"
-    networks: 
-      - api_network
+    # networks: 
+    #   - api_network
 
   # OLD Kibana - tbd delete
   # kibana:
@@ -47,13 +48,13 @@ services:
     container_name: redis
     ports:
       - '6379:6379'
-    networks: 
-      - api_network
+    # networks: 
+    #   - api_network
 
 volumes:
   esdat1:
 
 # Networks are used to bridge and isolate services together https://docs.docker.com/network/bridge/
-networks:
-  api_network:
-    driver: bridge
+# networks:
+#   api_network:
+#     driver: bridge

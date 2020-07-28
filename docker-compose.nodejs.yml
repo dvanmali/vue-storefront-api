@@ -1,11 +1,11 @@
 version: '3.5'
 services:
-  app:
+  vsf-api:
     # image: divante/vue-storefront-api:latest
+    image: revnite/vue-storefront-api
     build:
       context: .
       dockerfile: docker/vue-storefront-api/Dockerfile
-    image: vue-storefront-api
     container_name: vue-storefront-api
     depends_on:
       - es7
@@ -13,25 +13,25 @@ services:
     env_file: docker/vue-storefront-api/default.env
     environment:
       VS_ENV: dev
-    volumes:
-      - './config:/var/www/config'
-      - './ecosystem.json:/var/www/ecosystem.json'
-      - './migrations:/var/www/migrations'
-      - './package.json:/var/www/package.json'
-      - './babel.config.js:/var/www/babel.config.js'
-      - './tsconfig.json:/var/www/tsconfig.json'
-      - './nodemon.json:/var/www/nodemon.json'
-      - './scripts:/var/www/scripts'
-      - './src:/var/www/src'
-      - './var:/var/www/var'
-      - 'node_modules:/var/www/node_modules'
+    # volumes:
+    #   - './config:/var/www/config'
+    #   - './ecosystem.json:/var/www/ecosystem.json'
+    #   - './migrations:/var/www/migrations'
+    #   - './package.json:/var/www/package.json'
+    #   - './babel.config.js:/var/www/babel.config.js'
+    #   - './tsconfig.json:/var/www/tsconfig.json'
+    #   - './nodemon.json:/var/www/nodemon.json'
+    #   - './scripts:/var/www/scripts'
+    #   - './src:/var/www/src'
+    #   - './var:/var/www/var'
+    #   - 'node_modules:/var/www/node_modules'
     tmpfs:
       - /var/www/dist
     ports:
       - '8080:8080'
-    networks: 
-      - api_network
-      - api_to_magento
+    # networks: 
+    #   - api_network
+      # - api_to_magento
     
 #   webserver:
 #     image: nginx:mainline-alpine
@@ -70,11 +70,11 @@ services:
 #     #   device: /home/app/views/
 #     #   o: bind
 
-volumes:
-  node_modules:
+# volumes:
+#   node_modules:
 
 # Networks are used to bridge and isolate services together https://docs.docker.com/network/bridge/
-networks:
-  api_to_magento:
-    external: true
-    name: api_magento_net
+# networks:
+#   api_to_magento:
+#     external: true
+#     name: api_magento_net

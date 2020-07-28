@@ -32,12 +32,23 @@ WORKDIR /var/www
 
 RUN apk add --no-cache curl git bash
 
-COPY package*.json ./
-COPY yarn.lock ./
+COPY  package.json  \
+  yarn.lock         \
+  babel.config.js   \
+  ecosystem.json    \
+  tsconfig.json     \
+  nodemon.json      \
+  ./
 
 RUN apk add --no-cache --virtual .build-deps ca-certificates wget python make g++ && \
     yarn install --no-cache && \
     apk del .build-deps
+
+COPY config/ /var/www/config/
+COPY src/ /var/www/src/
+COPY var/ /var/www/var/
+COPY migrations /var/www/migrations/
+COPY scripts/ /var/www/scripts/
 
 COPY docker/vue-storefront-api/vue-storefront-api.sh /usr/local/bin/
 

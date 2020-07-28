@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2beta5
+kind: Config
+metadata:
+  name: vue-storefront-api
+build:
+  artifacts:
+  - image: revnite/vue-storefront-api
+    context: .
+    docker:
+      dockerfile: docker/vue-storefront-api/Dockerfile
+  - image: revnite/vue-storefront-elasticsearch
+    context: .
+    docker:
+      dockerfile: docker/elasticsearch7/Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - kubernetes/*.yaml

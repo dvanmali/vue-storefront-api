@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.nodejs.yml
+    kompose.version: 1.21.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: vsf-api
+  name: vsf-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: vsf-api
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.nodejs.yml
+        kompose.version: 1.21.0 ()
+      creationTimestamp: null
+      labels:
+        io.kompose.service: vsf-api
+    spec:
+      containers:
+      - env:
+        - name: BIND_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: BIND_HOST
+              name: docker-vue-storefront-api-default-env
+        - name: ELASTICSEARCH_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: ELASTICSEARCH_HOST
+              name: docker-vue-storefront-api-default-env
+        - name: ELASTICSEARCH_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: ELASTICSEARCH_PORT
+              name: docker-vue-storefront-api-default-env
+        - name: PM2_ARGS
+          valueFrom:
+            configMapKeyRef:
+              key: PM2_ARGS
+              name: docker-vue-storefront-api-default-env
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: REDIS_HOST
+              name: docker-vue-storefront-api-default-env
+        - name: VS_ENV
+          valueFrom:
+            configMapKeyRef:
+              key: VS_ENV
+              name: docker-vue-storefront-api-default-env
+        image: revnite/vue-storefront-api
+        imagePullPolicy: ""
+        name: vue-storefront-api
+        ports:
+        - containerPort: 8080
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/www/dist
+          name: vsf-api-tmpfs0
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - emptyDir:
+          medium: Memory
+        name: vsf-api-tmpfs0
+status: {}

@@ -6,13 +6,13 @@ metadata:
     kompose.version: 1.21.0 ()
   creationTimestamp: null
   labels:
-    io.kompose.service: redis
-  name: redis
+    io.kompose.service: es7
+  name: es7
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: redis
+      io.kompose.service: es7
   strategy: {}
   template:
     metadata:
@@ -21,14 +21,24 @@ spec:
         kompose.version: 1.21.0 ()
       creationTimestamp: null
       labels:
-        io.kompose.service: redis
+        io.kompose.service: es7
     spec:
       containers:
-      - image: redis:4-alpine
+      - env:
+        - name: ES_JAVA_OPTS
+          value: -Xmx512m -Xms512m
+        - name: bootstrap.memory_lock
+          value: "true"
+        - name: cluster.name
+          value: docker-cluster
+        - name: discovery.type
+          value: single-node
+        image: revnite/vue-storefront-elasticsearch
         imagePullPolicy: ""
-        name: redis
+        name: elasticsearch7
         ports:
-        - containerPort: 6379
+        - containerPort: 9200
+        - containerPort: 9300
         resources: {}
       restartPolicy: Always
       serviceAccountName: ""

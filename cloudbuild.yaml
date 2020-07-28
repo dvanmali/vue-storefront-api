@@ -38,3 +38,13 @@ steps:
 
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/redis:$COMMIT_SHA']
+
+  # Continuous Cloud Run Deployment
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['run', 'deploy', 'revnite_env', '--region=us-central1', '--platform=managed', 'gcr.io/$PROJECT_ID/vue-storefront-api:$COMMIT_SHA']
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['run', 'deploy', 'revnite_env', '--region=us-central1', '--platform=managed', 'gcr.io/$PROJECT_ID/elasticsearch7:$COMMIT_SHA']
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['run', 'deploy', 'revnite_env', '--region=us-central1', '--platform=managed', 'gcr.io/$PROJECT_ID/redis:$COMMIT_SHA']
