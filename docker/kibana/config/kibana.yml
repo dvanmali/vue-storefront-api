@@ -30,7 +30,7 @@ server.name: kibana
 
 # The URLs of the Elasticsearch instances to use for all your queries.
 # elasticsearch.hosts: ["http://localhost:9201"]
-elasticsearch.url: 127.0.0.1:9201 # URL MUST MATCH DOCKER SERVICE NAME
+elasticsearch.url: 127.0.0.1:9200 # URL MUST MATCH DOCKER SERVICE NAME
 
 # When this setting's value is true Kibana uses the hostname specified in the server.host
 # setting. When the value of this setting is false, Kibana uses the hostname of the host

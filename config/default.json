@@ -6,16 +6,7 @@
     "useOutputCacheTagging": false,
     "useOutputCache": false,
     "outputCacheDefaultTtl": 86400,
-    "availableCacheTags": [
-      "P",
-      "C",
-      "T",
-      "A",
-      "product",
-      "category",
-      "attribute",
-      "taxrule"
-    ],
+    "availableCacheTags": ["P", "C", "T", "A", "product", "category", "attribute", "taxrule"],
     "invalidateCacheKey": "aeSu7aip",
     "invalidateCacheForwarding": false,
     "invalidateCacheForwardUrl": "http://localhost:3000/invalidate?key=aeSu7aip&tag=",
@@ -32,8 +23,8 @@
   },
   "elasticsearch": {
     "host": "localhost",
-    "port": "9201",
     "index": "vue_storefront_catalog",
+    "port": 9200,
     "protocol": "http",
     "requestTimeout": 5000,
     "min_score": 0.01,
@@ -51,7 +42,7 @@
       "taxrule",
       "review"
     ],
-    "apiVersion": "7.3.2",
+    "apiVersion": "5.6",
     "useRequestFilter": false,
     "overwriteRequestSourceParams": false,
     "requestParamsBlacklist": [],
@@ -59,15 +50,11 @@
     "searchScoring": {
       "attributes": {
         "attribute_code": {
-          "scoreValues": {
-            "attribute_value": {
-              "weight": 1
-            }
-          }
+          "scoreValues": { "attribute_value": { "weight": 1 } }
         }
       },
       "fuzziness": 2,
-      "cutoff_frequency": 0.01,
+      "cutoff_frequency":  0.01,
       "max_expansions": 3,
       "minimum_should_match": "75%",
       "prefix_length": 2,
@@ -89,27 +76,7 @@
     }
   },
   "products": {
-    "fieldsToCompress": [
-      "max_regular_price",
-      "max_price",
-      "max_regular_price",
-      "minimal_regular_price",
-      "final_price",
-      "price",
-      "special_price",
-      "original_final_price",
-      "original_price",
-      "original_special_price",
-      "final_price_incl_tax",
-      "price_incl_tax",
-      "special_price_incl_tax",
-      "final_price_tax",
-      "price_tax",
-      "special_price_tax",
-      "image",
-      "small_image",
-      "thumbnail"
-    ],
+    "fieldsToCompress": ["max_regular_price", "max_price", "max_regular_price", "minimal_regular_price", "final_price", "price", "special_price", "original_final_price", "original_price", "original_special_price", "final_price_incl_tax", "price_incl_tax", "special_price_incl_tax", "final_price_tax", "price_tax", "special_price_tax", "image", "small_image", "thumbnail"],
     "fieldsToCompact": {
       "minimal_price": "mp",
       "has_options": "ho",
@@ -149,21 +116,10 @@
     "priceFilterKey": "final_price",
     "priceFilters": {
       "ranges": [
-        {
-          "from": 0,
-          "to": 50
-        },
-        {
-          "from": 50,
-          "to": 100
-        },
-        {
-          "from": 100,
-          "to": 150
-        },
-        {
-          "from": 150
-        }
+        { "from": 0, "to": 50 },
+        { "from": 50, "to": 100 },
+        { "from": 100, "to": 150 },
+        { "from": 150 }
       ]
     }
   },
@@ -174,7 +130,7 @@
     "enabled": false
   },
   "redis": {
-    "host": "redis",
+    "host": "localhost",
     "port": 6379,
     "db": 0,
     "auth": false
@@ -315,9 +271,7 @@
         "user": "vuestorefront",
         "pass": "vuestorefront.io"
       },
-      "targetAddressWhitelist": [
-        "contributors@vuestorefront.io"
-      ],
+      "targetAddressWhitelist": ["contributors@vuestorefront.io"],
       "secretString": "__THIS_IS_SO_SECRET__"
     },
     "example-processor": {
@@ -326,20 +280,33 @@
       }
     },
     "example-custom-filter": {
-      "catalogFilter": [
-        "SampleFilter"
-      ]
+      "catalogFilter": [ "SampleFilter" ]
     }
   },
   "magento2": {
-    "imgUrl": "http://172.20.0.1/media/catalog/product",
+    "imgUrl": "http://demo-magento2.vuestorefront.io/media/catalog/product",
     "assetPath": "/../var/magento2-sample-data/pub/media",
     "api": {
-      "url": "http://172.20.0.1/rest",
-      "consumerKey": "2971j4kaoywxvonsx891hgnidmj6tshp",
-      "consumerSecret": "2in8lnukvfas7nztdxtuxf1imziw3fj2",
-      "accessToken": "i3d58nks3o9avja01x9wf8v8r2i9sm9q",
-      "accessTokenSecret": "z47hj0x2vrzvxkbydk5zf3veccmcd61w"
+      "url": "http://demo-magento2.vuestorefront.io/rest",
+      "consumerKey": "byv3730rhoulpopcq64don8ukb8lf2gq",
+      "consumerSecret": "u9q4fcobv7vfx9td80oupa6uhexc27rb",
+      "accessToken": "040xx3qy7s0j28o3q0exrfop579cy20m",
+      "accessTokenSecret": "7qunl3p505rubmr7u1ijt7odyialnih9"
+    }
+  },
+  "magento1": {
+    "imgUrl": "http://magento-demo.local/media/catalog/product",
+    "assetPath": "",
+    "magentoUserName": "",
+    "magentoUserPassword": "",
+    "httpUserName": "",
+    "httpUserPassword": "",
+    "api": {
+      "url": "http://magento-demo.local/vsbridge",
+      "consumerKey": "",
+      "consumerSecret": "",
+      "accessToken": "",
+      "accessTokenSecret": ""
     }
   },
   "imageable": {

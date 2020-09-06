@@ -1,80 +1,28 @@
-version: '3.5'
+version: '3.0'
 services:
-  vsf-api:
+  app:
     # image: divante/vue-storefront-api:latest
-    image: revnite/vue-storefront-api
     build:
       context: .
       dockerfile: docker/vue-storefront-api/Dockerfile
-    container_name: vue-storefront-api
     depends_on:
-      - es7
+      - es1
       - redis
     env_file: docker/vue-storefront-api/default.env
     environment:
       VS_ENV: dev
-    # volumes:
-    #   - './config:/var/www/config'
-    #   - './ecosystem.json:/var/www/ecosystem.json'
-    #   - './migrations:/var/www/migrations'
-    #   - './package.json:/var/www/package.json'
-    #   - './babel.config.js:/var/www/babel.config.js'
-    #   - './tsconfig.json:/var/www/tsconfig.json'
-    #   - './nodemon.json:/var/www/nodemon.json'
-    #   - './scripts:/var/www/scripts'
-    #   - './src:/var/www/src'
-    #   - './var:/var/www/var'
-    #   - 'node_modules:/var/www/node_modules'
+    volumes:
+      - './config:/var/www/config'
+      - './ecosystem.json:/var/www/ecosystem.json'
+      - './migrations:/var/www/migrations'
+      - './package.json:/var/www/package.json'
+      - './babel.config.js:/var/www/babel.config.js'
+      - './tsconfig.json:/var/www/tsconfig.json'
+      - './nodemon.json:/var/www/nodemon.json'
+      - './scripts:/var/www/scripts'
+      - './src:/var/www/src'
+      - './var:/var/www/var'
     tmpfs:
       - /var/www/dist
     ports:
       - '8080:8080'
-    # networks: 
-    #   - api_network
-      # - api_to_magento
-    
-#   webserver:
-#     image: nginx:mainline-alpine
-#     container_name: webserver
-#     restart: unless-stopped
-#     ports:
-#       - "81:81"
-#     volumes:
-#       - web-root:/var/www/src
-#       - ./nginx-conf:/etc/nginx/conf.d
-#       - certbot-etc:/etc/letsencrypt
-#       - certbot-var:/var/lib/letsencrypt
-#     depends_on:
-#       - app
-#     networks:
-#       - app-network
-      
-#   certbot:
-#     image: certbot/certbot
-#     container_name: certbot
-#     volumes:
-#       - certbot-etc:/etc/letsencrypt
-#       - certbot-var:/var/lib/letsencrypt
-#       - web-root:/var/www/src
-#     depends_on:
-#       - webserver
-#     command: certonly --webroot --webroot-path=/var/www/src --email dvanmali@andrew.cmu.edu --agree-tos --no-eff-email --staging -d revnite-api.io  -d www.revnite-api.io
-
-# volumes:
-#   certbot-etc:
-#   certbot-var:
-#   web-root:
-#     driver: local
-#     # driver_opts:
-#     #   type: none
-#     #   device: /home/app/views/
-#     #   o: bind
-
-# volumes:
-#   node_modules:
-
-# Networks are used to bridge and isolate services together https://docs.docker.com/network/bridge/
-# networks:
-#   api_to_magento:
-#     external: true
-#     name: api_magento_net
